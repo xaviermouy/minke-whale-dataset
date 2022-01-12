@@ -1,0 +1,2 @@
+audio_channel_number,UTC_offset,sampling_frequency,bit_depth,mooring_platform_name,recorder_type,recorder_SN,hydrophone_model,hydrophone_SN,hydrophone_depth,location_name,location_lat,location_lon,location_water_depth,deployment_ID,deployment_date,recovery_date
+1,-5,2000,16,bottom mounted,MARU,0,MARU,0,0,SBNMS-NOPP6,0,0,0,USA-SBNMS-NOPP6-20090515,20090515T000000,20091028T000000
