@@ -1,0 +1,2 @@
+audio_channel_number,UTC_offset,sampling_frequency,bit_depth,mooring_platform_name,recorder_type,recorder_SN,hydrophone_model,hydrophone_SN,hydrophone_depth,location_name,location_lat,location_lon,location_water_depth,deployment_ID           ,deployment_date,recovery_date
+1                   ,-5        ,2000              ,16       ,bottom mounted       ,MARU         ,MARU157    ,MARU            ,MARU157      ,304             ,USA-NAVFAC-FL-Site1 ,30.050083,-80.108467,305                   ,USA-NAVFAC-FL-200912-Site1,20091204T085900,20100107T1300300
