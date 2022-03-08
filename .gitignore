@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 *.aif
+*.png
 
 # C extensions
 *.so
