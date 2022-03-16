@@ -13,12 +13,13 @@ from ecosound.core.annotation import Annotation
 
 annot_files=[
     r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NAVFAC-FL-200912-Site1\Annotations_dataset_USA-NAVFAC-FL-200912-Site1 annotations',
-    r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200609-CH01\Annotations_dataset_USA-NEFSC-SBNMS-200609-CH01 annotations',
+    r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NAVFAC-FL-200912-Site1\noise\Annotations_dataset_USA-NAVFAC-FL-200912-Site1 annotations',  
+    r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200609-CH01\Annotations_dataset_USA-NEFSC-SBNMS-200609-CH01 annotations',    
     r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200609-CH02\Annotations_dataset_USA-NEFSC-SBNMS-200609-CH02 annotations',
     r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200609-CH04\Annotations_dataset_USA-NEFSC-SBNMS-200609-CH04 annotations',
-    r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200809-NOPP4_CH01\Annotations_dataset_USA-NEFSC-SBNMS-200809-NOPP4_CH01 annotations',
-    r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200809-NOPP4_CH09\Annotations_dataset_USA-NEFSC-SBNMS-200809-NOPP4_CH09 annotations',
-    r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200809-NOPP4_CH10\Annotations_dataset_USA-NEFSC-SBNMS-200809-NOPP4_CH10 annotations',
+    r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200809-NOPP4_CH01\Annotations_dataset_USA-NEFSC-SBNMS-200809-NOPP4_CH01 annotations',    
+    r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200809-NOPP4_CH09\Annotations_dataset_USA-NEFSC-SBNMS-200809-NOPP4_CH09 annotations',    
+    r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200809-NOPP4_CH10\Annotations_dataset_USA-NEFSC-SBNMS-200809-NOPP4_CH10 annotations',    
     r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200812-NOPP5_CH10\noise\Annotations_dataset_USA-NEFSC-SBNMS-200812-NOPP5_CH10 annotations',
     r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200903-NOPP6_CH03\Annotations_dataset_USA-NEFSC-SBNMS-200903-NOPP6_CH03 annotations',
     r'C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200903-NOPP6a_CH01\Annotations_dataset_USA-NEFSC-SBNMS-200903-NOPP6a_CH01 annotations',
@@ -51,7 +52,7 @@ for annot_file in annot_files:
     for HB_ID in HB_label_ID:
         data['label_class'].loc[data['uuid'] == HB_ID[0:-4]]='HB' 
     for FS_ID in FS_label_ID:
-        data['label_class'].loc[data['uuid'] == FS_ID[0:-4]]='FS'
+        data['label_class'].loc[data['uuid'] == FS_ID[0:-4]]='HK'
     for NN_ID in NN_label_ID:
             data['label_class'].loc[data['uuid'] == NN_ID[0:-4]]='NN'
     for delete_ID in delete_label_ID:
