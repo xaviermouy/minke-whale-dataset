@@ -1,0 +1,5 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Delta Time (s)	Low Freq (Hz)	High Freq (Hz)	Begin Path	File Offset (s)	Begin File	Class	Sound type	Software	Confidence
+1	Spectrogram 1	1	31.0	34.0	3.0	0	800	C:/Users/xavier.mouy/Documents/GitHub/minke-whale-dataset/test\NOPP4_EST_20080919_130000.aif	31.0	NOPP4_EST_20080919_130000.aif	MW	0	Ketos-Minke	0.539
+2	Spectrogram 1	1	105.5	113.5	8.0	0	800	C:/Users/xavier.mouy/Documents/GitHub/minke-whale-dataset/test\NOPP4_EST_20080919_130000.aif	105.5	NOPP4_EST_20080919_130000.aif	MW	0	Ketos-Minke	0.839
+3	Spectrogram 1	1	173.0	181.0	8.0	0	800	C:/Users/xavier.mouy/Documents/GitHub/minke-whale-dataset/test\NOPP4_EST_20080919_130000.aif	173.0	NOPP4_EST_20080919_130000.aif	MW	0	Ketos-Minke	0.840
+4	Spectrogram 1	1	887.0	893.0	6.0	0	800	C:/Users/xavier.mouy/Documents/GitHub/minke-whale-dataset/test\NOPP4_EST_20080919_130000.aif	887.0	NOPP4_EST_20080919_130000.aif	MW	0	Ketos-Minke	0.719

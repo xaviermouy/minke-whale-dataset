@@ -1,0 +1,24 @@
+
+** First time setting up **
+screen
+python3 -m venv ketos-env
+source ketos-env/bin/activate
+pip install ketos
+pip install ecosound
+pip install netCDF4
+
+** Start run **
+screen -S ketos-run
+source ketos-env/bin/activate
+python3 ./run_ketos_detector.py --audio_folder=/net/stellwagen/ACOUSTIC_DATA/BOTTOM_MOUNTED/NEFSC_SBNMS/NEFSC_SBNMS_200809_NOPP4 --extension=.aif --channel=10 --deployment_file=./results/NEFSC_SBNMS_200809_NOPP4/deployment_info.csv --output_folder=./results/NEFSC_SBNMS_200809_NOPP4 --model=./models/minke/ketos_model.kt --threshold=0.5 --duration=5 --win_len=5 --step_size=0.5 --buffer=0 --with_group --with_merge
+
+
+** screen commands **
+screen -S <name> : start new sessions with a name
+screen -ls       : list screen sessions
+screen -r        : reattach session
+Ctrl-a Ctrl-d    : detach session
+Ctrl-a k         : kill current session
+pkill screen     : kill all screen sessions
+
+
