@@ -25,15 +25,15 @@ params['test_annot_file'] =r'C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\2
 
 params['data_train_dir'] = r'C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\train_data'
 params['data_test_dir'] = r'C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\test_data'
-params['out_dir'] = r'C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308'
+params['out_dir'] = r'C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\ketos_databases\spectro-20s_fft-0.128_step-0.064_fmin-0_fmax-800'
 
 params['positive_labels'] = ['MW']
 params['negative_labels'] = ['HK', 'NN', 'HKPT', 'HKP', 'NNS', 'HB']
 
-params['classif_window_sec'] = 5.0  # segemnt duration in sec for the CNN
+params['classif_window_sec'] = 20.0  # segemnt duration in sec for the CNN
 params['aug_win_step_sec'] = 3.0    # step between consecutive windows in sec (0: no augmentation)
 params['aug_min_annot_ovlp'] = 0.75 # windows must contain at least x% of the annotation
-params['spectro_config_file'] = r'C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\spec_config.json'
+params['spectro_config_file'] = r'C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\ketos_databases\spectro-20s_fft-0.128_step-0.064_fmin-0_fmax-800\spec_config.json'
 
 
 ## ############################################################################

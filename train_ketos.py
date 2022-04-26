@@ -66,6 +66,10 @@ if args.n_epochs:
 np.random.seed(1000)
 tf.random.set_seed(2000)
 
+# create output folder if it doesn't exist yet
+if os.path.isdir(params['out_dir']) is False:
+    os.mkdir(params['out_dir'])
+
 # creating data feed
 db = dbi.open_file(params['db_file'], 'r')
 train_data = dbi.open_table(db, "/train/data")

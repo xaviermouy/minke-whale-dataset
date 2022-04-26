@@ -1,28 +1,3 @@
-# ================================================================================ #
-#   Authors: Fabio Frazao and Oliver Kirsebom                                      #
-#   Contact: fsfrazao@dal.ca, oliver.kirsebom@dal.ca                               #
-#   Organization: MERIDIAN (https://meridian.cs.dal.ca/)                           #
-#   Team: Data Analytics                                                           #
-#   Project: ketos                                                                 #
-#   Project goal: The ketos library provides functionalities for handling          #
-#   and processing acoustic data and applying deep neural networks to sound        #
-#   detection and classification tasks.                                            #
-#                                                                                  #
-#   License: GNU GPLv3                                                             #
-#                                                                                  #
-#       This program is free software: you can redistribute it and/or modify       #
-#       it under the terms of the GNU General Public License as published by       #
-#       the Free Software Foundation, either version 3 of the License, or          #
-#       (at your option) any later version.                                        #
-#                                                                                  #
-#       This program is distributed in the hope that it will be useful,            #
-#       but WITHOUT ANY WARRANTY; without even the implied warranty of             #
-#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              #
-#       GNU General Public License for more details.                               # 
-#                                                                                  #
-#       You should have received a copy of the GNU General Public License          #
-#       along with this program.  If not, see <https://www.gnu.org/licenses/>.     #
-# ================================================================================ #
 
 """ This scripts transforms a Ketos (binary) classifier model into a detector capable of 
     processing continuous audio data and outputting a list of detections.
@@ -63,6 +38,7 @@ import uuid
 import platform
 import logging
 import time
+import sqlite3
 
 def set_logger(outdir):
     """
@@ -137,8 +113,6 @@ parser.add_argument('--win_len', type=int, default=1,
                         help='Length of score averaging window (no. time steps). Must be an odd integer.')
 parser.add_argument('--threshold', type=float, default=0.5,
                         help='minimum score for a detection to be accepted (ranging from 0 to 1)')                   
-parser.add_argument('--duration', type=float, default=5,
-                        help='Duration of classification window in seconds')  
 parser.add_argument('--tmp_dir', type=str, default='./tmp',
                         help='Path of temporary folder.')  
 parser.add_argument('--deployment_file', type=str, default=None,
@@ -162,7 +136,6 @@ parser.set_defaults(progress_bar=False, group=False, merge=False)
 args = parser.parse_args()
 assert isinstance(args.win_len, int) and args.win_len%2 == 1, 'win_len must be an odd integer'
 
-
 ###############################################################################
 
 recursive=True
@@ -180,7 +153,6 @@ logger = set_logger(args.output_folder)
 #model1, audio_repr1 = ResNetInterface.load_model_file(args.model, './tmp', load_audio_repr=True)
 model, audio_repr = ketos.neural_networks.load_model_file(args.model, args.tmp_dir, load_audio_repr=True)
 spec_config = audio_repr[0]['spectrogram']
-spec_config['duration']=args.duration
 
 # list files to process
 if os.path.isfile(args.audio_folder):  # if a single file was provided
@@ -190,6 +162,11 @@ elif os.path.isdir(args.audio_folder):  # if a folder was provided
                                             args.extension,
                                             recursive=recursive,
                                             case_sensitive=True)
+
+
+print(str(args))
+logger.info(str(args))
+
 logger.info('Files to process: ' + str(len(files)))
 start_time_loop = time.time()
 # loop to process each file
@@ -217,7 +194,12 @@ for idx,  file in enumerate(files):
             annot = Annotation()
             annot_data = annot.data
             files_list = [os.path.splitext(list(file)[0])[0] for file in detections]
-            file_timestamp = ecosound.core.tools.filename_to_datetime(file)[0]
+            try:
+                file_timestamp = ecosound.core.tools.filename_to_datetime(file)[0]
+                timestamp = True
+            except:
+                print('Time stamp format not recognized')
+                timestamp = False
             
             #ext_list = [os.path.splitext(list(file)[0])[1] for file in detections]
             start_list = [list(file)[1] for file in detections]
@@ -236,9 +218,10 @@ for idx,  file in enumerate(files):
             annot_data['confidence']= confidence_list
             annot_data['software_name']= 'Ketos-Minke'
             annot_data['entry_date'] = datetime.now()
-            annot_data['audio_file_start_date'] = file_timestamp
-            annot_data['time_min_date'] = pd.to_datetime(file_timestamp + pd.to_timedelta(annot_data['time_min_offset'], unit='s'))
-            annot_data['time_max_date'] = pd.to_datetime(file_timestamp + pd.to_timedelta(annot_data['time_max_offset'], unit='s'))
+            if timestamp:
+                annot_data['audio_file_start_date'] = file_timestamp
+                annot_data['time_min_date'] = pd.to_datetime(file_timestamp + pd.to_timedelta(annot_data['time_min_offset'], unit='s'))
+                annot_data['time_max_date'] = pd.to_datetime(file_timestamp + pd.to_timedelta(annot_data['time_max_offset'], unit='s'))
             annot_data['from_detector'] = True
             annot_data['duration'] = annot_data['time_max_offset'] - annot_data['time_min_offset']
             annot_data['uuid'] = annot_data.apply(lambda _: str(uuid.uuid4()), axis=1)
@@ -257,13 +240,21 @@ for idx,  file in enumerate(files):
                                     ignore_index=True,
                                     )      
             annot.check_integrity()
+            # save output to Raven
             annot.to_raven(outdir=args.output_folder,single_file=False)      
-            annot.to_netcdf(os.path.join(args.output_folder,files_list[0]))     
+            # save output to NetCDF
+            annot.to_netcdf(os.path.join(args.output_folder,files_list[0]))   
+            # Save to SQLite
+            database = os.path.join(args.output_folder,'detections.sqlite')
+            conn = sqlite3.connect(database)
+            annot.data.to_sql(name='detections', con=conn, if_exists='append', index=False)
+            conn.close()
+            
         
         proc_time_file = time.time() - start_time
         logger.info("--- Executed in %0.4f seconds ---" % (proc_time_file))
         print(f"Executed in {proc_time_file:0.4f} seconds")
-        
+                
         # delete temporary file
         os.remove(os.path.join(args.tmp_dir,temp_file_name))
           

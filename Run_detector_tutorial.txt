@@ -10,13 +10,26 @@ pip install netCDF4
 ** Start run **
 screen -S ketos-run
 source ketos-env/bin/activate
+
 python3 ./run_ketos_detector.py --audio_folder=/net/stellwagen/ACOUSTIC_DATA/BOTTOM_MOUNTED/NEFSC_SBNMS/NEFSC_SBNMS_200809_NOPP4 --extension=.aif --channel=10 --deployment_file=./results/NEFSC_SBNMS_200809_NOPP4/deployment_info.csv --output_folder=./results/NEFSC_SBNMS_200809_NOPP4 --model=./models/minke/ketos_model.kt --threshold=0.5 --duration=5 --win_len=5 --step_size=0.5 --buffer=0 --with_group --with_merge
 
+python3 ./run_ketos_detector.py --audio_folder=/net/stellwagen/ACOUSTIC_DATA/BOTTOM_MOUNTED/NEFSC_SBNMS/NEFSC_SBNMS_202009_SB03/1677758490_48kHz --extension=.wav --channel=1 --deployment_file=./results/NEFSC_SBNMS_202009_SB03/deployment_info.csv --output_folder=./results/NEFSC_SBNMS_202009_SB03 --model=./models/minke/ketos_model.kt --threshold=0.5 --duration=5 --win_len=5 --step_size=0.5 --buffer=0 --with_group --with_merge
 
-** screen commands **
-screen -S <name> : start new sessions with a name
+python3 ./run_ketos_detector.py --audio_folder=/net/stellwagen/ACOUSTIC_DATA/BOTTOM_MOUNTED/NEFSC_CARIBBEAN/NEFSC_CARIBBEAN_201612_MTQ/in_water --extension=.aif --channel=1 --deployment_file=./results/NEFSC_CARIBBEAN_201612_MTQ/deployment_info.csv --output_folder=./results/NEFSC_CARIBBEAN_201612_MTQ --model=./models/minke/ketos_model.kt --threshold=0.5 --duration=5 --win_len=5 --step_size=0.5 --buffer=0 --with_group --with_merge
+
+python3 ./run_ketos_detector.py --audio_folder=/net/stellwagen/ACOUSTIC_DATA/BOTTOM_MOUNTED/NEFSC_GA/NEFSC_GA_201611/Brunswick --extension=.aif --channel=6 --deployment_file=./results/NEFSC_GA_201611_CH6/deployment_info.csv --output_folder=./results/NEFSC_GA_201611_CH6 --model=./models/minke/ketos_model.kt --threshold=0.5 --win_len=1 --step_size=2 --buffer=0 --with_group --with_merge
+
+python run_ketos_detector.py --audio_folder=C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\test_data --extension=.wav --channel=1 --deployment_file=C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200609-CH04\deployment_info.csv --output_folder=C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\results_PR_test-set\20s_avg-1s --model=C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\ketos_models\20s\ketos_model.kt --step_size=2 --threshold=0.5 --with_group --with_merge
+
+python run_ketos_detector.py --audio_folder=C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\test_data --extension=.wav --channel=1 --deployment_file=C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200609-CH04\deployment_info.csv --output_folder=C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\results_PR_test-set\7s_avg-1s --model=C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\ketos_models\7s\ketos_model.kt --step_size=2 --threshold=0.5 --with_group --with_merge
+
+
+--audio_folder=C:\Users\xavier.mouy\Documents\Projects\2021_Minke_detector\data\BOTTOM_MOUNTED-NEFSC_GOM-NEFSC_GOM_202007_MONHEGAN\5418_2kHz --extension=.wav --channel=1 --deployment_file=C:\Users\xavier.mouy\Documents\GitHub\minke-whale-dataset\datasets\USA-NEFSC-SBNMS-200609-CH04\deployment_info.csv --output_folder=C:\Users\xavier.mouy\Documents\Projects\2021_Minke_detector\results\NEFSC_GOM_202007_MONHEGAN --model=C:\Users\xavier.mouy\Documents\GitHub\Ketos\minke\20220401T140308\ketos_models\5s\ketos_model.kt --step_size=2 --threshold=0.5 --with_group --with_merge
+
+**
 screen -ls       : list screen sessions
 screen -r        : reattach session
+screen -D <name> : Detach session with ID <name>
 Ctrl-a Ctrl-d    : detach session
 Ctrl-a k         : kill current session
 pkill screen     : kill all screen sessions
