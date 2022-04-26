@@ -1,1 +1,0 @@
-2022-04-21 15:32:24,322 - INFO - __main__ - Namespace(audio_folder=None, buffer=0.0, channel=1, deployment_file=None, extension='.wav', group=False, merge=False, model=None, num_segs=128, output_folder='detections.csv', progress_bar=False, step_size=None, threshold=0.5, tmp_dir='./tmp', win_len=1)
