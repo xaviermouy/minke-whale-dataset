@@ -118,6 +118,7 @@ parser.add_argument('--tmp_dir', type=str, default='./tmp',
 parser.add_argument('--deployment_file', type=str, default=None,
                         help='deployment_info.csv with metadata.')  
 
+
 show_progress_parser = parser.add_mutually_exclusive_group(required=False)
 show_progress_parser.add_argument('--show_progress', dest='progress_bar', action='store_true')
 show_progress_parser.add_argument('--hide_progress', dest='progress_bar', action='store_false')
@@ -196,7 +197,7 @@ for idx,  file in enumerate(files):
             files_list = [os.path.splitext(list(file)[0])[0] for file in detections]
             try:
                 file_timestamp = ecosound.core.tools.filename_to_datetime(file)[0]
-                timestamp = True
+                timestamp = True                                                     
             except:
                 print('Time stamp format not recognized')
                 timestamp = False

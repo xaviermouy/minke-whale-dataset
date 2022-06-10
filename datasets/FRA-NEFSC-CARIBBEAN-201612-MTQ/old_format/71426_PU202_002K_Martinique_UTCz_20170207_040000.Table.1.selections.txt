@@ -1,0 +1,4 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	Begin Clock Time	Begin Date	pulse train type
+1	Spectrogram 1	1	42308.055919930	42366.335586247	238.1	385.3	15:45:08.056	2017/2/7	SU
+2	Spectrogram 1	1	45795.776120280	45836.307551282	337.7	376.6	16:43:15.776	2017/2/7	SU
+3	Spectrogram 1	1	64401.230538462	64444.657071678	69.3	398.3	21:53:21.231	2017/2/7	SU
