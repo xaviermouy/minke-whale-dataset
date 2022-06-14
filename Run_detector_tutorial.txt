@@ -11,7 +11,7 @@ pip install netCDF4
 screen -S ketos-run
 source ketos-env/bin/activate
 
-python3 ./run_ketos_detector.py --audio_folder=/net/stellwagen/ACOUSTIC_DATA/BOTTOM_MOUNTED/NEFSC_CARIBBEAN/NEFSC_CARIBBEAN_201612_MTQ/in_water --extension=.aif --channel=1 --deployment_file=./results/NEFSC_CARIBBEAN_201612_MTQ/deployment_info.csv --output_folder=./results/NEFSC_CARIBBEAN_201612_MTQ --model=./models/minke/ketos_model.kt --threshold=0.5 --step_size=2 --with_group --with_merge
+python3 ./run_ketos_detector.py --audio_folder=/net/stellwagen/ACOUSTIC_DATA/BOTTOM_MOUNTED/NEFSC_CARIBBEAN/NEFSC_CARIBBEAN_201612_MTQ/in_water --extension=.aif --channel=1 --deployment_file=./results/NEFSC_CARIBBEAN_201612_MTQ/deployment_info.csv --output_folder=./results/NEFSC_CARIBBEAN_201612_MTQ --model=./models/minke/ketos_model.kt --threshold=0.5 --step_size=0.5 --win_len=5 --with_group --with_merge
 
 **
 screen -ls       : list screen sessions
