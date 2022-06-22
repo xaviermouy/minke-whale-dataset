@@ -10,6 +10,10 @@ This script creat a duirnal plot of detections or annotations
 
 @author: xavier.mouy
 """
+
+import sys
+sys.path.append("..") # Adds higher directory to python modules path.
+
 from ecosound.core.annotation import Annotation
 import numpy as np
 import pandas as pd
@@ -76,16 +80,14 @@ data_resamp['time']=data_resamp['datetime'].dt.time
 
 # Create 2D matrix
 axis_date = sorted(data_resamp['date'].unique())
-axis_TOD = sorted(data_resamp['time'].unique()) # time of day
-axis_TOD = [dt.datetime.combine(axis_date[0], x) for x in axis_TOD]
 data_grid = pd.pivot_table(data_resamp, values='value', index='time',columns='date', aggfunc=np.sum)
 data_grid = data_grid.fillna(0) # replaces NaNs by zeros
 if is_binary:
     data_grid[data_grid>0]=1
 
 # Plot matrix
-x_lims = mdates.date2num([axis_date[0],axis_date[-1]])
-y_lims = mdates.date2num([axis_TOD[0],axis_TOD[-1]])
+x_lims = mdates.date2num([axis_date[0],axis_date[-1]+dt.timedelta(1)])
+y_lims = mdates.date2num([dt.datetime.combine(axis_date[0], dt.time(0,0)),dt.datetime.combine(axis_date[0], dt.time(23,59,59))])
 fig, ax = plt.subplots(constrained_layout=True)
 im = ax.imshow(data_grid, extent = [x_lims[0], x_lims[1],  y_lims[0], y_lims[1]], vmin=0, vmax=norm_max,aspect='auto',origin='lower',cmap='viridis')
 ax.xaxis_date()
