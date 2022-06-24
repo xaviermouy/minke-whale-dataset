@@ -1,21 +1,30 @@
 
-""" This scripts transforms a Ketos (binary) classifier model into a detector capable of 
-    processing continuous audio data and outputting a list of detections.
+"""
+Ketos detector
 
-    The audio data is processed by sliding a window across the audio data, 
-    using a user-specified step size. At each step, the audio segment contained 
-    within the window is passed on to the model for classification.
+This script runs a Ketos (binary) classifier model on continous acoustic data.
 
-    A number of options are available for modifying the behaviour of the detector, 
-    including post-processing of the classification scores reported by the model.
-
-    The script is executed in the terminal with the following command,
-
+Usage:
+    The script is executed in the terminal with the following command:
         python detector.py --model <path_to_saved_model> --audio_folder <path_to_data_folder>
-    
-    To see the full list of command lines arguments, type
 
+    To see the full list of command lines arguments, type:
         python detector.py --help
+
+Outputs:
+    - NetCDF4 (.nc) files with detection results that can be read with the
+      library ecosound. There is one .nc file for each audio file processed.
+    - Raven Annotation Table (.txt) file with detection results that can be
+      visualized with the software Raven. There is one .txt file for each audio
+      file processed.
+    - SQLite database file (.sql) with detection results for all the files
+      processed. The .sqlite file can be opened using ecosound or SQLiteStudio.
+    - errors_log.txt: Log of errors that occured during the processing. This
+      file stays empty if there is no errors.
+    - full_log.txt: Log contaning, the input parameters used, the files that
+      were processed, the computing time, and the number of detections per file
+
+@author: Xavier Mouy (xavier.mouy@noaa.gov)
 """
 
 import os
@@ -173,11 +182,9 @@ start_time_loop = time.time()
 # loop to process each file
 for idx,  file in enumerate(files):
     try:
-        
         logger.info(file)
         start_time = time.time()
         print(str(idx+1) + r'/' + str(len(files)) + ': ' + file)
-      
         # Decimate
         temp_file_name = decimate(file, args.tmp_dir, spec_config['rate'], channel=args.channel)      
         # initialize the audio loader
@@ -250,15 +257,19 @@ for idx,  file in enumerate(files):
             conn = sqlite3.connect(database)
             annot.data.to_sql(name='detections', con=conn, if_exists='append', index=False)
             conn.close()
-            
-        
+        else:
+            # No detection but still writes empty output files
+            annot = Annotation()
+            # save output to Raven
+            annot.to_raven(args.output_folder, os.path.splitext(file)[0]+'.chan'+str(args.channel)+'.Table.1.selections.txt', single_file=False)      
+            # save output to NetCDF
+            annot.to_netcdf(os.path.splitext(file)[0])
         proc_time_file = time.time() - start_time
         logger.info("--- Executed in %0.4f seconds ---" % (proc_time_file))
         print(f"Executed in {proc_time_file:0.4f} seconds")
-                
         # delete temporary file
         os.remove(os.path.join(args.tmp_dir,temp_file_name))
-          
+
     except BaseException as e:
       logger.error(file)
       logger.error("Exception occurred", exc_info=True)
