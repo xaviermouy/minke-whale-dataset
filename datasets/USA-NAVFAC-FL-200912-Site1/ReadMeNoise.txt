@@ -1,1 +1,0 @@
-Corresponds to SET06 from Popescu et al

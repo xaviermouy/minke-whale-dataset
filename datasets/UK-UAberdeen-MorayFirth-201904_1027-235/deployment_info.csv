@@ -1,2 +1,0 @@
-audio_channel_number,UTC_offset,sampling_frequency,bit_depth,mooring_platform_name,recorder_type,recorder_SN,hydrophone_model,hydrophone_SN,hydrophone_depth,location_name,location_lat,location_lon,location_water_depth,deployment_ID,deployment_date,recovery_date
-1,0,48000,16,bottom mounted,soundtrap,1677725722,soundtrap,1677725722,0,UK-UAberdeen-MorayFirth-235,57.82415,-2.64898,0,UK-UAberdeen-MorayFirth-201904_1027-235,20190402T000000,20190501T000000
