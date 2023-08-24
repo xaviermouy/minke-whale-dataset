@@ -26,12 +26,13 @@ dataset.from_netcdf(os.path.join(in_dir, file))
 
 # Filter
 print("Filtering detections...")
+dataset.filter("label_class=='MW'", inplace=True)
 # dataset.filter("label_class!='HK'", inplace=True)
 # dataset.filter("label_class=='NN'", inplace=True)
-dataset.filter(
-    "deployment_ID=='USA-NEFSC-MA-RI-202001-NS01'| deployment_ID=='USA-NEFSC-MA-RI-202202-NS02'",
-    inplace=True,
-)
+# dataset.filter(
+#     "deployment_ID=='USA-NEFSC-MA-RI-202001-NS01'| deployment_ID=='USA-NEFSC-MA-RI-202202-NS02'",
+#     inplace=True,
+# )
 
 
 # Create spectrograms and wav files
@@ -45,7 +46,7 @@ dataset.export_spectrograms(
     time_buffer_sec=5,
     spectro_unit="sec",
     spetro_nfft=0.256,
-    spetro_frame=0.128,
+    spetro_frame=0.256,
     spetro_inc=0.03,
     freq_min_hz=0,
     freq_max_hz=1000,
